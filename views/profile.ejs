@@ -5,11 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+      window.tailwind = {
+        theme: {
+          extend: {
+            // This tells Tailwind to enable backdrop-filter utilities
+            backdropFilter: {
+              'none': 'none',
+              'sm': 'blur(4px)',
+              'md': 'blur(12px)',
+              'lg': 'blur(16px)',
+              'xl': 'blur(24px)',
+            },
+          },
+        },
+      }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <div class="w-full min-h-screen bg-zinc-900 p-10 text-white">
+    <div class="main-div w-full min-h-screen bg-zinc-900 p-10 text-white">
         <div class="flex justify-end">
             <a class="text-sm bg-red-500 px-3 py-2 rounded-md mb-5 inline-block" href="/logout">Logout</a>
         </div>
@@ -37,6 +53,7 @@
                     <div class="btns flex mt-1 gap-5">
                         <a href="/like/<%=post._id%>" class="text-blue-500"><%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %></a>
                         <a href="/edit/<%=post._id%>" class="text-zinc-400">Edit</a>
+                        <a href="/delete/<%=post._id%>" class="text-red-500 openModal delete-link">Delete</a>
                     </div>
                 </div>
                         <%}) %>
@@ -48,6 +65,21 @@
             </div>
         </div>
     </div>
+    <div class="deleteModal hidden fixed inset-0 w-full min-h-screen bg-black bg-opacity-90 backdrop-blur-sm flex justify-center items-center z-50">
+    
+    <div class="modal h-auto p-10 shadow-lg rounded-md
+                bg-gray-800 border border-gray-700">
+        
+        <h3 class="text-white text-lg font-semibold mb-4">Are you sure?</h3>
+        
+        <div class="flex gap-5 mt-3">
+            <button class="del-btn bg-red-500 text-white px-5 py-2 rounded-md font-semibold">Delete</button>
+            <button class="cancel-btn bg-gray-300 text-gray-800 px-5 py-2 rounded-md font-semibold">Cancel</button>
+        </div>
+    </div>
+</div>
+</div>
+    <script type="module" src="/javascripts/popup.js"></script>
 </body>
 
 </html>

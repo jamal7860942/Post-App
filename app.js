@@ -108,4 +108,8 @@ app.post('/upload',isLoggedIn, upload.single('image'), async (req, res) => {
     let user = await userModel.findOneAndUpdate({_id:req.user.userid} , {profilepic: req.file.filename},{new:true});
     res.redirect('/profile');
 })
+app.get('/delete/:id' , isLoggedIn ,async (req , res)=>{
+    let post = await postModel.findOneAndDelete({_id:req.params.id});
+    res.redirect('/profile');
+})
 app.listen(3000);
